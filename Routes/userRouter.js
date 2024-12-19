@@ -1,5 +1,7 @@
 const express = require('express');
-const {Signup, Login} = require('../Controller/userController');
+const {Signup, Login, AllUsers} = require('../Controller/userController');
+const isAuthenticated = require('../middleware/jwt');
+
 const path = require('path');
 
 const router = express.Router()
@@ -22,7 +24,18 @@ router.get('/login', (req,res) => {
     }
 });
 
+// router.post("/find", (req,res) => {
+//     try {
+//         console.log('find request recieved:', req.body);
+//         res.status(200).json({ message: 'Find request processed' });
+//     } catch (error) {
+//         console.error('Error in find:', error);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// })
+
 router.post("/Login",Login)
 router.post("/Signup", Signup)
+router.get('/find', isAuthenticated, AllUsers)
 
 module.exports = router

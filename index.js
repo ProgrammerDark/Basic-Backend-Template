@@ -7,7 +7,7 @@ const DB = require('./Database/db')
 const userRouter = require('./Routes/userRouter');
 
 app.use(express.json());
-app.use('/api/v2/users', userRouter);
+app.use('/api/v1/users', userRouter);
 app.use(express.static(path.join(__dirname, 'views')));
 //import Database connection
 DB()
