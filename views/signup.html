@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="styles/signupStyle.css" />
+  </head>
+  <body>
+    <h1>Sign Up</h1>
+    <form id="signup-form" action="/api/v1/users/Signup" method="POST">
+      <input type="text" id="username" name="username" placeholder="Username" />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Password"
+      />
+      <input type="email" id="email" name="email" placeholder="Email" />
+      <button type="submit">Sign Up</button>
+    </form>
+    <script>
+        const form = document.getElementById("signup-form");
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const response = await signup();
+          if (response.ok) {
+            alert("Signup successful! You can now log in.");
+            form.reset();
+          } else {
+            alert("Failed to signup. Please try again.");
+          }
+        });
+
+        async function signup() {
+          return await fetch("/api/v2/users/Signup", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userName: document.getElementById("username").value,
+              password: document.getElementById("password").value,
+              email: document.getElementById("email").value,
+            }),
+          });
+        }
+      </script>
+  </body>
+</html>
