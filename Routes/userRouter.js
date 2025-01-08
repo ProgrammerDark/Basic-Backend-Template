@@ -1,9 +1,8 @@
 const express = require('express');
 const {Signup, Login, AllUsers} = require('../Controller/userController');
 const isAuthenticated = require('../middleware/jwt');
-
+const validation = require('../helper/validator');
 const path = require('path');
-
 const router = express.Router()
 
 router.get('/signup', (req, res) => {
@@ -35,7 +34,7 @@ router.get('/login', (req,res) => {
 // })
 
 router.post("/Login",Login)
-router.post("/Signup", Signup)
+router.post("/Signup", validation, Signup)
 router.get('/find', isAuthenticated, AllUsers)
 
 module.exports = router
