@@ -1,4 +1,4 @@
-const valiation = async (req, res, next) => {
+const validator = async (req, res, next) => {
     try {
         const { userName, password, email} = req.body;
         if(!validator.isLength(userName, { min: 7, max: 30})){
@@ -18,3 +18,4 @@ const valiation = async (req, res, next) => {
         res.status(500).json({ message: 'error validating user' });
     }
 }
+module.exports = validator;
