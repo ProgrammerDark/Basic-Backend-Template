@@ -78,6 +78,30 @@ const AllUsers = async (req, res) => {
     }
 }
 
+const forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+        if (!email) {
+            console.log('Missing email');
+            return res.status(400).json({ error: 'Please provide email' });
+        }
+        const user = await User.findOne({ email });
+        if (!user) {
+            console.log('User not found');
+            return res.status(404).json({ error: 'User not found' });
+        }
+        const token = await crypto.randomBytes(32).toString()
+        console.log('Token generated successfully:', token);
+        return res.status(200).json({ token });
+    } catch (e) {
+        res.status(500).json({ message: "internal server error" });
+    }
+}
+
+const resetPassword = async (req,res) = {
+    r
+}
+
 module.exports = {
     Signup,
     Login,
